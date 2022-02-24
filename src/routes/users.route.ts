@@ -4,7 +4,11 @@ import user_repository from '../repositories/user_repository'
 
 //GET
 const usersRoute = Router()
+
 usersRoute.get('/users', async (req: Request, res: Response, next: NextFunction) => {
+
+  console.log(req.headers['authorization'])
+
   const users = await user_repository.findAllUsers()
   res.status(StatusCodes.OK).send(users)
 })

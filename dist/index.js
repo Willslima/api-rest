@@ -4,10 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const error_handler_middleware_1 = __importDefault(require("./middlewares/error.handler.middleware"));
+const authorization_route_1 = __importDefault(require("./routes/authorization.route"));
+const status_route_1 = __importDefault(require("./routes/status.route"));
+const users_route_1 = __importDefault(require("./routes/users.route"));
 const app = (0, express_1.default)();
-app.use('/status', (req, res, next) => {
-    res.status(200).send({ foo: 'bar' });
-});
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use(users_route_1.default);
+app.use(status_route_1.default);
+app.use(authorization_route_1.default);
+app.use(error_handler_middleware_1.default);
 app.listen(3000, () => {
-    console.log('Rodando...');
+    console.log(`Servidor ON: http://localhost:3000/`);
 });
