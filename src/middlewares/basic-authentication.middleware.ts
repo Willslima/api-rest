@@ -24,8 +24,6 @@ async function basicAuthenticationMiddleware(
 
         const [username, password] = tokenContent.split(':');
 
-        console.log(username, password);
-
         if(!username || !password){
             throw new ForbiddenError('Credenciais não informadas')
         }
