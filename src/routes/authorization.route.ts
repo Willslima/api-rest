@@ -4,6 +4,7 @@ import user_repository from "../repositories/user_repository";
 import JWT from 'jsonwebtoken'
 import { StatusCodes } from "http-status-codes";
 import basicAuthenticationMiddleware from "../middlewares/basic-authentication.middleware";
+import jwtAuthenticationMiddleware from "../middlewares/jwt.authentication.middleware";
 
 const authorizationRoute = Router();
 
@@ -27,6 +28,10 @@ authorizationRoute.post('/token',basicAuthenticationMiddleware,  async(req:Reque
     } catch(error){
         next(error)
     }
+})
+
+authorizationRoute.post('/token/validate', jwtAuthenticationMiddleware, (req: Request, resp: Response, next: NextFunction) => {
+    resp.sendStatus(StatusCodes.OK)
 })
 
 export default authorizationRoute;
